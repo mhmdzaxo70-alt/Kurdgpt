@@ -1,45 +1,66 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ku" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KurdGPT</title>
 <style>
-body{
-background:#111;
-color:white;
-font-family:Arial,sans-serif;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-margin:0;
-text-align:center;
-}
-h1{
-font-size:50px;
-color:#00d26a;
-}
-p{
-font-size:20px;
-}
-button{
-padding:15px 30px;
-font-size:18px;
-border:none;
-border-radius:10px;
-background:#00d26a;
-color:white;
-cursor:pointer;
-}
+  body { font-family: sans-serif; background: #121212; color: white; text-align: center; margin: 0; padding: 20px; }
+  h1 { font-size: 40px; color: #00d26a; margin-top: 30px; }
+  p { font-size: 18px; color: #ccc; }
+  #chat-box { width: 100%; max-width: 400px; height: 300px; background: #1e1e1e; margin: 20px auto; border-radius: 10px; padding: 10px; overflow-y: auto; text-align: right; display: none; }
+  .msg { margin: 8px 0; padding: 8px 12px; border-radius: 8px; display: inline-block; max-width: 80%; }
+  .user { background: #00d26a; color: black; float: right; clear: both; }
+  .bot { background: #333; color: white; float: left; clear: both; }
+  #input-container { display: none; max-width: 400px; margin: 0 auto; }
+  input { width: 70%; padding: 10px; border-radius: 5px; border: none; }
+  button { padding: 10px 20px; font-size: 16px; border: none; border-radius: 8px; background: #00d26a; color: black; font-weight: bold; cursor: pointer; }
 </style>
 </head>
 <body>
+
 <div>
   <h1>KurdGPT</h1>
-  <p>ئێکەم ژیریا دەستكردا كوردی</p>
-<button onclick="alert('سلاڤ')">گفتوگۆێ بكه</button>
+  <p id="sub-title">ئێکەم ژیریا دەستكردا كوردی</p>
+  <button id="start-btn" onclick="startChat()">گفتوگۆێ بكه</button>
+</div>
 
+<div id="chat-box"></div>
+<div id="input-container">
+  <input type="text" id="user-input" placeholder="تشتەكێ بنڤێسه...">
+  <button onclick="sendMsg()">هنارتن</button>
+</div>
+
+<script>
+  function startChat() {
+    document.getElementById('start-btn').style.display = 'none';
+    document.getElementById('sub-title').style.display = 'none';
+    document.getElementById('chat-box').style.display = 'block';
+    document.getElementById('input-container').style.display = 'block';
+    addMsg('سلاڤ! ئه‌ز KurdGPT م، چه‌وا دكارم هاريكاريا ته بكه‌م؟', 'bot');
+  }
+
+  function addMsg(text, sender) {
+    let box = document.getElementById('chat-box');
+    let div = document.createElement('div');
+    div.className = 'msg ' + sender;
+    div.innerText = text;
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function sendMsg() {
+    let input = document.getElementById('user-input');
+    if(!input.value.trim()) return;
+    addMsg(input.value, 'user');
+    let text = input.value;
+    input.value = '';
+    setTimeout(() => {
+      addMsg('سوپاس بو پەیاما تە! ئەڤە بەرسڤەکا ئەزموونی یە.', 'bot');
+    }, 1000);
+  }
+</script>
 
 </body>
 </html>
+
