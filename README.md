@@ -1,0 +1,2 @@
+# Kurdgpt
+Kurdish
